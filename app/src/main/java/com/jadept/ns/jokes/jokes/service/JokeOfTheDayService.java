@@ -12,33 +12,29 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class JokeOfTheDayService {
-    @Autowired
-    private JokesConnector jokesConnector;
-    @Autowired
-    private ExplicitContextService explicitContextService;
+    private final JokesConnector jokesConnector;
+    private final ExplicitContextService explicitContextService;
 
     public Optional<Joke> retrieveJokeOfTheDay() {
 
         List<Joke> jokes = jokesConnector.retrieveJokes();
 
         List<Joke> appropriateJokes = jokes.stream().
-                filter(joke -> explicitContextService.isJokeAppropriate(joke)).
+                filter(explicitContextService::isJokeAppropriate).
                 collect(Collectors.toList());
 
         return findShortestJoke(appropriateJokes);
 
     }
 
-
-
-
-    private Optional<Joke> findShortestJoke(List<Joke> jokes){
+    private Optional<Joke> findShortestJoke(List<Joke> jokes) {
         if (CollectionUtils.isEmpty(jokes)) {
             return Optional.empty();
         }
         Joke smallestJoke = jokes.get(0);
-        for (Joke joke:jokes) {
+        for (Joke joke : jokes) {
             if (joke.getJoke().length() < smallestJoke.getJoke().length()) {
                 smallestJoke = joke;
             }

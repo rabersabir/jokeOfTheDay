@@ -10,17 +10,14 @@ import java.util.Map;
 @Component
 public class ExplicitContextService {
 
-    List<String> forbiddenWords = Arrays.asList("sex", "tieten");
+   private List<String> forbiddenWords = Arrays.asList("sex", "tieten");
 
     public boolean isJokeAppropriate(Joke joke) {
-        if (!joke.isSafe() || containsSuspiciousWords(joke) || hasRedFlag(joke.getFlags(), "sexist", "explicit","racist")) {
-            return false;
-        }
-        return true;
+        return joke.isSafe() && !containsSuspiciousWords(joke) && !hasRedFlag(joke.getFlags(), "sexist", "explicit", "racist");
     }
 
     private boolean hasRedFlag(Map<String, Boolean> flags, String... flagsToCheck) {
-        return Arrays.stream(flagsToCheck).anyMatch(e -> flags.get(e));
+        return Arrays.stream(flagsToCheck).anyMatch(flags::get);
     }
 
     private boolean containsSuspiciousWords(Joke joke) {
