@@ -19,7 +19,7 @@ public class JokesConnector {
     public List<Joke> fetchJokes(Integer amount, String type) {
         RestTemplate restTemplate= new RestTemplate();
         ResponseEntity<JokeResponse> response
-                = restTemplate.getForEntity(jokesResourceUrl+"?"+getParams(amount, type), JokeResponse.class);
+                = restTemplate.getForEntity(jokesResourceUrl+"any?"+getParams(amount, type), JokeResponse.class);
         if (response.getStatusCode() != HttpStatus.OK ||  response.getBody().isError()) {
             throw new IllegalStateException("Something went wrong:) No jokes");
         }

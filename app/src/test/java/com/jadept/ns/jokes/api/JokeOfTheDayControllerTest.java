@@ -1,6 +1,5 @@
-package com.jadept.ns.jokes;
+package com.jadept.ns.jokes.api;
 
-import com.jadept.ns.jokes.api.JokeOfTheDayController;
 import com.jadept.ns.jokes.connectors.Joke;
 import com.jadept.ns.jokes.service.JokeOfTheDayService;
 import org.junit.Test;
@@ -33,13 +32,10 @@ public class JokeOfTheDayControllerTest {
         joke.setJoke("That is a joke");
         joke.setId(123L);
         when(jokeOfTheDayService.retrieveJokeOfTheDay()).thenReturn(Optional.of(joke));
-
         ResponseEntity<com.jadept.ns.jokes.dto.Joke> response = jokeOfTheDayController.retrieveJoke();
         assertThat(response.getBody().getRandomJoke(), is("That is a joke"));
-
         assertThat(response.getBody().getId(), is(123L));
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-
 
     }
 

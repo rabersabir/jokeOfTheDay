@@ -15,6 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
 
 
@@ -29,7 +30,8 @@ public class JokesApplicationTests {
     @Test
     void happyFlow() {
 
-        stubFor(get("/jokes/")
+        stubFor(get(urlPathMatching("/jokes/any/([a-zA-Z0-9/-]*)"))
+
                 .willReturn(okJson("{\n" +
                         "  \"error\": false,\n" +
                         "  \"amount\": 1,\n" +
@@ -63,7 +65,8 @@ public class JokesApplicationTests {
     @Test
     void happyFlowWithExplicietJoke() {
 
-        stubFor(get("/jokes/")
+        stubFor(get(urlPathMatching("/jokes/any/([a-zA-Z0-9/-]*)"))
+
                 .willReturn(okJson("{\n" +
                         "  \"error\": false,\n" +
                         "  \"amount\": 1,\n" +
@@ -111,8 +114,7 @@ public class JokesApplicationTests {
 
     @Test
     void funnyShortJoke() {
-
-        stubFor(get("/jokes/")
+        stubFor(get(urlPathMatching("/jokes/any/([a-zA-Z0-9/-]*)"))
                 .willReturn(okJson("{\n" +
                         "  \"error\": false,\n" +
                         "  \"amount\": 1,\n" +
