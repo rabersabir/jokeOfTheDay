@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(properties = "jokes.api.url=http://localhost:8080/jokes/")
 @AutoConfigureWireMock
-public class JokesApplicationTests {
+public class ApplicationIntegrationTests {
     @Autowired
     JokeOfTheDayController joke;
     @ClassRule
