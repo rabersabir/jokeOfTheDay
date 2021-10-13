@@ -14,32 +14,43 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class ExplicitContextServiceTest {
 
-   private ExplicitContextService explicitContextService = new ExplicitContextService();
+    private ExplicitContextService explicitContextService = new ExplicitContextService();
 
-   @Test
-    public  void aAppropriateJoke(){
+    @Test
+    public void aAppropriateJoke() {
+        Joke joke = new Joke();
+        joke.setJoke("that is a funny joke");
+        joke.setSafe(true);
+        assertTrue(explicitContextService.isJokeAppropriate(joke));
+    }
 
-       Joke joke= new Joke();
-       joke.setJoke("that is a funny joke");
-       assertTrue(explicitContextService.isJokeAppropriate(joke));
-   }
-   @Test
-   public  void notAppropriateJoke(){
+    @Test
+    public void notSafeAppropriateJoke() {
 
-      Joke joke= new Joke();
-      joke.setJoke("that is a sex related joke");
-      assertFalse(explicitContextService.isJokeAppropriate(joke));
-   }
+        Joke joke = new Joke();
+        joke.setSafe(false);
+        joke.setJoke("that is a good joke");
+        assertFalse(explicitContextService.isJokeAppropriate(joke));
+    }
+
+    @Test
+    public void notAppropriateJoke() {
+
+        Joke joke = new Joke();
+        joke.setSafe(true);
+        joke.setJoke("that is a sex related joke");
+        assertFalse(explicitContextService.isJokeAppropriate(joke));
+    }
 
 
-   @Test
-   public  void oneMoreExplicitJoke(){
+    @Test
+    public void oneMoreExplicitJoke() {
 
-      Joke joke= new Joke();
-      joke.setJoke("that is a related joke");
-      Map<String, Boolean> flags= new FastHashMap();
-      flags.put("explicit", true);
-      joke.setFlags(flags);
-      assertFalse(explicitContextService.isJokeAppropriate(joke));
-   }
+        Joke joke = new Joke();
+        joke.setJoke("that is a related joke");
+        Map<String, Boolean> flags = new FastHashMap();
+        flags.put("explicit", true);
+        joke.setFlags(flags);
+        assertFalse(explicitContextService.isJokeAppropriate(joke));
+    }
 }

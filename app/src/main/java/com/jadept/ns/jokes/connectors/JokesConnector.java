@@ -13,11 +13,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JokesConnector {
 
+    private final RestTemplate restTemplate;
     @Value("${jokes.api.url}")
     private String jokesResourceUrl;
 
     public List<Joke> fetchJokes(Integer amount, String type) {
-        RestTemplate restTemplate= new RestTemplate();
         ResponseEntity<JokeResponse> response
                 = restTemplate.getForEntity(jokesResourceUrl+"any?"+getParams(amount, type), JokeResponse.class);
         if (response.getStatusCode() != HttpStatus.OK ||  response.getBody().isError()) {

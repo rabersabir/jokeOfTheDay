@@ -2,6 +2,7 @@ package com.jadept.ns.jokes.service;
 
 import com.jadept.ns.jokes.connectors.Joke;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,7 @@ public class ExplicitContextService {
     }
 
     private boolean hasRedFlag(Map<String, Boolean> flags, String... flagsToCheck) {
-        return Arrays.stream(flagsToCheck).anyMatch(flags::get);
+        return !CollectionUtils.isEmpty(flags) && Arrays.stream(flagsToCheck).anyMatch(flags::get);
     }
 
     private boolean containsSuspiciousWords(Joke joke) {
