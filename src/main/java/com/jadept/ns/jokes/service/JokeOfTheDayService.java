@@ -17,11 +17,13 @@ public class JokeOfTheDayService {
     private final ExplicitContextService explicitContextService;
 
     /**
-     * retrieves a list of jokes from jokes connector . Filter inappropriate jokes then selects the shortest joke.
+     * retrieves a list of jokes from jokes connector .
+     * Filters inappropriate jokes then selects the shortest joke.
      *
      * @return the shortest joke or empty when not found
      */
     public Optional<Joke> retrieveJokeOfTheDay() {
+        //These params could be part of a business logic or setting
         List<Joke> jokes = jokesConnector.fetchJokes(16, "single");
         List<Joke> appropriateJokes = jokes.stream().
                 filter(explicitContextService::isJokeAppropriate).

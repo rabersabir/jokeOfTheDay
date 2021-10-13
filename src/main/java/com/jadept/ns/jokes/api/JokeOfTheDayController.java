@@ -15,6 +15,10 @@ public class JokeOfTheDayController {
 
     private final JokeOfTheDayService jokeOfTheDayService;
 
+    /**
+     * This endpoint returns a joke.
+     * @return a joke
+     */
     @GetMapping("/jokes/")
     public ResponseEntity<Joke> retrieveJoke() {
         Optional<com.jadept.ns.jokes.connectors.Joke> optionalJoke = jokeOfTheDayService.retrieveJokeOfTheDay();
