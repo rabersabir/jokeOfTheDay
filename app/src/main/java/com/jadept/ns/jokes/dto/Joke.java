@@ -1,4 +1,4 @@
-package com.jadept.ns.jokes.jokes.dto;
+package com.jadept.ns.jokes.dto;
 
 import lombok.Builder;
 import lombok.Getter;

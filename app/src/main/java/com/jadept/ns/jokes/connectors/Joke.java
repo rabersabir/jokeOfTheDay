@@ -1,4 +1,4 @@
-package com.jadept.ns.jokes.jokes.connectors;
+package com.jadept.ns.jokes.connectors;
 
 import lombok.Getter;
 import lombok.Setter;

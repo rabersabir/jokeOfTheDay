@@ -1,4 +1,4 @@
-package com.jadept.ns.jokes.jokes;
+package com.jadept.ns.jokes;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

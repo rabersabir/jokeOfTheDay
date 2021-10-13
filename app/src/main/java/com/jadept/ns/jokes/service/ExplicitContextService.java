@@ -1,6 +1,6 @@
-package com.jadept.ns.jokes.jokes.service;
+package com.jadept.ns.jokes.service;
 
-import com.jadept.ns.jokes.jokes.connectors.Joke;
+import com.jadept.ns.jokes.connectors.Joke;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

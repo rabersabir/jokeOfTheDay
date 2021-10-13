@@ -1,9 +1,8 @@
-package com.jadept.ns.jokes.jokes.service;
+package com.jadept.ns.jokes.service;
 
-import com.jadept.ns.jokes.jokes.connectors.Joke;
-import com.jadept.ns.jokes.jokes.connectors.JokesConnector;
+import com.jadept.ns.jokes.connectors.Joke;
+import com.jadept.ns.jokes.connectors.JokesConnector;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -17,16 +16,17 @@ public class JokeOfTheDayService {
     private final JokesConnector jokesConnector;
     private final ExplicitContextService explicitContextService;
 
+    /**
+     * retrieves a list of jokes from jokes connector . Filter inappropriate jokes then selects the shortest joke.
+     *
+     * @return the shortest joke or empty when not found
+     */
     public Optional<Joke> retrieveJokeOfTheDay() {
-
-        List<Joke> jokes = jokesConnector.retrieveJokes();
-
+        List<Joke> jokes = jokesConnector.fetchJokes(16, "single");
         List<Joke> appropriateJokes = jokes.stream().
                 filter(explicitContextService::isJokeAppropriate).
                 collect(Collectors.toList());
-
         return findShortestJoke(appropriateJokes);
-
     }
 
     private Optional<Joke> findShortestJoke(List<Joke> jokes) {

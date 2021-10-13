@@ -1,8 +1,8 @@
-package com.jadept.ns.jokes.jokes;
+package com.jadept.ns.jokes;
 
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
-import com.jadept.ns.jokes.jokes.api.JokeOfTheDayController;
-import com.jadept.ns.jokes.jokes.dto.Joke;
+import com.jadept.ns.jokes.api.JokeOfTheDayController;
+import com.jadept.ns.jokes.dto.Joke;
 import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 
-@SpringBootTest
+@SpringBootTest(properties = "jokes.api.url=http://localhost:8080/jokes/")
 @AutoConfigureWireMock
 public class JokesApplicationTests {
     @Autowired
