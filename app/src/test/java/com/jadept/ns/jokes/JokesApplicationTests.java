@@ -1,5 +1,6 @@
 package com.jadept.ns.jokes;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 import com.jadept.ns.jokes.api.JokeOfTheDayController;
 import com.jadept.ns.jokes.dto.Joke;
@@ -30,8 +31,7 @@ public class JokesApplicationTests {
     @Test
     void happyFlow() {
 
-        stubFor(get(urlPathMatching("/jokes/any/([a-zA-Z0-9/-]*)"))
-
+        stubFor(get(WireMock.urlPathEqualTo("/jokes/any"))
                 .willReturn(okJson("{\n" +
                         "  \"error\": false,\n" +
                         "  \"amount\": 1,\n" +
@@ -65,7 +65,7 @@ public class JokesApplicationTests {
     @Test
     void happyFlowWithExplicietJoke() {
 
-        stubFor(get(urlPathMatching("/jokes/any/([a-zA-Z0-9/-]*)"))
+        stubFor(get(WireMock.urlPathEqualTo("/jokes/any"))
 
                 .willReturn(okJson("{\n" +
                         "  \"error\": false,\n" +
@@ -114,7 +114,7 @@ public class JokesApplicationTests {
 
     @Test
     void funnyShortJoke() {
-        stubFor(get(urlPathMatching("/jokes/any/([a-zA-Z0-9/-]*)"))
+        stubFor(get(WireMock.urlPathEqualTo("/jokes/any"))
                 .willReturn(okJson("{\n" +
                         "  \"error\": false,\n" +
                         "  \"amount\": 1,\n" +
